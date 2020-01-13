@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Recommender System</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+    <script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Recommender Systems
+
+Thibault Allart
+
+
+---
+
+# Agenda
+
+1. Introduction to recommender systems and first steps into bandit. 
+2. Contextual bandit.
+3. Matrix factorization and deep recommender system.
+4. Historical sampling bias.
+5. List recommendation, position based model and EM algorithm.
+6. A first look into reinforcement learning.
+7. Deploying and calling an API using Flask, Nginx and Docker.
+8. Project.
+9. Soutenances.
+
+---
+
+# Introduction
+
+1. The diversity of recommender systems.
+2. Bandit framework. 
+3. Epsilon greedy algorithm.
+4. Upper Confidence Bound algorithm. 
+5. Thompson sampling algorithm.
+6. Non stationary rewards.
+7. Delayed rewards. 
+
+
+---
+
+# The diversity of recommender systems.
+
+.center[
+          <img src="img/ldlc.png" style="height: 360px;" />
+]
+
+---
+
+.center[
+          <img src="img/amazon0.png" style="height: 160px;" />
+]
+
+.centerleft[
+          <img src="img/amazon1.png" style="height: 200px;" />
+]
+
+.centerleft[
+          <img src="img/amazon2.png" style="height: 200px;" />
+]
+
+---
+
+.center[
+          <img src="img/netflix1.png" style="width: 550px;" />
+]
+
+.center[
+          <img src="img/netflix2.png" style="width: 550px;" />
+]
+
+.center[
+          <img src="img/netflix3.png" style="width: 550px;" />
+]
+
+.center[
+          <img src="img/netflix4.png" style="width: 550px;" />
+]
+
+---
+
+# The diversity of recommender systems.
+
+.center[
+          <img src="img/spotify.png" style="height: 460px;" />
+]
+
+---
+
+# The diversity of recommender systems.
+
+.center[
+          <img src="img/twitter1.png" style="height: 300px;" />
+          <img src="img/twitter2.png" style="height: 400px;" />
+]
+
+---
+
+# The diversity of recommender systems.
+
+.center[
+          <img src="img/facebook.png" style="height: 450px;" />
+]
+
+---
+
+# The diversity of recommender systems.
+
+.center[
+          <img src="img/meetic.png" style="height: 420px;" />
+]
+
+---
+
+# The diversity of recommender systems.
+
+.center[
+          <img src="img/google1.png" style="height: 400px;" />
+          <img src="img/google2.png" style="height: 400px;" />
+]
+
+
+---
+
+# Starting with a simpler problem
+
+Let's start to simplify the problem by assuming that:
+
+- We recommend only one item at the time
+
+- We have no informations (about the user, product, etc)
+
+- The rewards are stationary
+
+---
+
+# Bandit framework
+
+Notebook: https://github.com/thibaultallart/IA316-2020
+
+
+---
+
+# Epsilon-greedy
+
+.centerleft[
+<div lang="latex">
+   \\
+  REQUIRE: \epsilon \in [0,1] \\
+  \text{1. } \text{At round t,} \\
+  \text{2.}  \ \ \ \ \text{with probability } \epsilon: \\
+  \text{3.}  \ \ \ \ \ \ \ \ A_t \sim \text{Uniform}({1,\ldots,K}) \\
+  \text{4.}  \ \ \ \ \text{with probability } 1-\epsilon: \\
+  \text{5.}  \ \ \ \ \ \ \ \ A_t = \text{argmax}_{a \in {1,\ldots,K}}(Q_a) \\
+</div>
+]
+
+---
+
+# UCB
+
+Optimistic in the face of uncertainty we play the arm with the higher Upper Confidence Bound.
+
+.center[
+<div lang="latex">
+A_t = \text{argmax}_a \bigg[ Q_t(a) + \sqrt{\frac{c\log t}{N_t(a)}} \bigg]
+</div>
+]
+
+
+---
+
+# Bayesian inference
+
+If you need a recap on Bayesian inference, you can look [here](https://ocw.mit.edu/courses/mathematics/18-05-introduction-to-probability-and-statistics-spring-2014/readings/).
+
+
+Recall that
+
+.center[
+<div lang="latex">
+\begin{align*}
+\text{Posterior probability } &\propto \text{ Likelihood } \times \text{ Prior probability} \\
+f(\theta|x) &\propto f(x|theta) \times f(\theta)
+\end{align*}
+</div>
+]
+
+If prior and posterior are in the same probability distribution family they are then called conjugate distributions.
+
+A long list of conjugate prior can be found on [wikipedia](https://en.wikipedia.org/wiki/Conjugate_prior).
+
+---
+
+# Thompson sampling
+
+<!--
+.centerleft[
+<div lang="latex">
+   \\
+  REQUIRE: A distribution function P parametrized by \theta and a priors on \theta distribution.
+  \text{1. } \text{At round t,} \\
+  \text{2.}  \ \ \ \ \text{sample \theta'_k from the posterior distribution}
+  \text{3.}  \ \ \ \ A_t = \text{argmax}_{a \in {1,\ldots,K}}(V_a) \\
+  \text{4.}  \ \ \ \ \text{with probability } 1-\epsilon: \\
+  \text{5.}  \ \ \ \ \ \ \ \ A_t = \text{argmax}_{a \in {1,\ldots,K}}(Q_a) \\
+</div>
+]
+-->
+
+---
+
+<!--
+.center[
+          <img src="img/mf.png" style="height: 260px;" />
+]
+
+<br>
+
+.center[
+<div lang="latex">
+\min_{U,V} \sum_{(u,i)\,\text{observés}} (R_{u,i}- (UV)_{u,i})^2 + \lambda \|U\|^2_F+ \lambda \|V\|^2_F
+</div>
+]
+-->
+
+
+---
+
+# References
+
+- Sutton and Barto [book](http://www.incompleteideas.net/book/the-book.html)
+- Emilie Kaufmann [lectures](http://chercheurs.lille.inria.fr/ekaufman/RL.html)
+
+
+
+
+
+
+<!--
+<div lang="latex">
+\frac{1+sin(x)}{y}
+</div>
+-->
+
+
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
