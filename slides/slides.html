@@ -153,7 +153,13 @@ Let's start to simplify the problem by assuming that:
 
 # Bandit framework
 
-Notebook: https://github.com/thibaultallart/IA316-2020
+.center[
+          <img src="img/bandit.png" style="height: 250px;" />
+]
+
+<br>
+
+Start the first [notebook](https://github.com/thibaultallart/IA316-2020/blob/master/notebooks/1_bandits.ipynb).
 
 
 ---
@@ -198,7 +204,7 @@ Recall that
 <div lang="latex">
 \begin{align*}
 \text{Posterior probability } &\propto \text{ Likelihood } \times \text{ Prior probability} \\
-f(\theta|x) &\propto f(x|theta) \times f(\theta)
+f(\theta|x) &\propto f(x|\theta) \times f(\theta)
 \end{align*}
 </div>
 ]
@@ -211,21 +217,36 @@ A long list of conjugate prior can be found on [wikipedia](https://en.wikipedia.
 
 # Thompson sampling
 
-<!--
 .centerleft[
 <div lang="latex">
    \\
-  REQUIRE: A distribution function P parametrized by \theta and a priors on \theta distribution.
-  \text{1. } \text{At round t,} \\
-  \text{2.}  \ \ \ \ \text{sample \theta'_k from the posterior distribution}
-  \text{3.}  \ \ \ \ A_t = \text{argmax}_{a \in {1,\ldots,K}}(V_a) \\
-  \text{4.}  \ \ \ \ \text{with probability } 1-\epsilon: \\
-  \text{5.}  \ \ \ \ \ \ \ \ A_t = \text{argmax}_{a \in {1,\ldots,K}}(Q_a) \\
+  \text{REQUIRE: A distribution function f parametrized by } \theta \text{ and a priors } g \text{ on } \theta \text{ distribution. } \\
+  \text{1. } p^0(\theta|x) = g(\theta) \\
+  \text{2. } \text{At round t,} \\
+  \text{3.}  \ \ \ \ \text{sample } (\theta'_a)_{a \in {1,\ldots,K}} \text{ from the posterior distribution } p^t. \\
+  \text{4.}  \ \ \ \ \text{play } A_t = \text{argmax}_{a \in {1,\ldots,K}}(\theta'_a) \\
+  \text{5.}  \ \ \ \ \text{update posterior distribution using observed reward, i.e. } \\
+  \text{ } \ \ \ \ \  p^{t+1}(\theta|x) = f(x|\theta) \times p^t(\theta|x) \\
 </div>
 ]
--->
 
 ---
+
+# Deepmind bsuite
+
+[bsuite](https://github.com/deepmind/bsuite)
+
+[paper](https://arxiv.org/pdf/1908.03568.pdf)
+
+[Notebook](https://github.com/thibaultallart/IA316-2020/blob/master/notebooks/1_bandit_with_bsuite.ipynb)
+
+
+---
+
+
+
+
+
 
 <!--
 .center[
@@ -246,8 +267,9 @@ A long list of conjugate prior can be found on [wikipedia](https://en.wikipedia.
 
 # References
 
-- Sutton and Barto [book](http://www.incompleteideas.net/book/the-book.html)
-- Emilie Kaufmann [lectures](http://chercheurs.lille.inria.fr/ekaufman/RL.html)
+- Reinforcement Learning An introduction from Sutton and Barto [book](http://www.incompleteideas.net/book/the-book.html)
+- [lectures](http://chercheurs.lille.inria.fr/ekaufman/RL.html) from Kaufmann
+- Bandit Algorithms from Lattimore and Szepesvar [book](https://tor-lattimore.com/downloads/book/book.pdf)
 
 
 
