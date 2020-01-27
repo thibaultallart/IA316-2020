@@ -1,6 +1,9 @@
 # IA316-2020
 Materials for Telecom ParisTech AI and e-commerce course (IA316) in 2020.
 
+We look at recommender system using an Agent-Environment perspective originating from Reinforcement Learning.
+
+We implement contextual bandit approaches and deep recommender systems.
 
 ## Project
 1. Implement an environment that illustrate the main caracteristics of a website (or an app) and it's users interractions.
