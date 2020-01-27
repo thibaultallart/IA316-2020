@@ -22,5 +22,5 @@ Materials for Telecom ParisTech AI and e-commerce course (IA316) in 2020.
 - [OuiCar](https://github.com/Bnoyt/ia316-renting)
 - [Spotify](https://github.com/cwu08/IA316-2020)
 - Steam
-- Tinder
-- Youtube (soutenance 27/02)
+- [Tinder](https://github.com/ArthurGarnierBG/IA316_2020)
+- [Youtube](https://github.com/TDahmen/IA316_Youtube) (soutenance 27/02)
