@@ -26,5 +26,5 @@ We implement contextual bandit approaches and deep recommender systems.
 - [Spotify](https://github.com/cwu08/IA316-2020)
 - [Steam](https://github.com/altrimentidetto/IA316)
 - [Tinder](https://github.com/ArthurGarnierBG/IA316_2020)
-- [Twitch](https:/github.com/Rgassi/Twitch)
+- [Twitch](https://github.com/Rgassi/Twitch)
 - [Youtube](https://github.com/TDahmen/IA316_Youtube) 
